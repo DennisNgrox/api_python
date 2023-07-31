@@ -42,11 +42,10 @@
 $ git clone https://github.com/DennisNgrox/api_python
 
 # Acessar repositório
-$ cd electron-markdownify
+$ cd api_python
 
 # Instalar dependencias
-$ pip install flask
-$ pip install jsonify
+$ pip install -r requirements.txt 
 
 # Executar programa create_api.py
 $ python.exe create_api.py
