@@ -6,14 +6,12 @@ import os
 
 
 # Definir diretório do programa --- \\ EDITAR O DIRETORIO AONDE SE ENCONTRA O PROGRAMA
-diretorio_programa = 'C:\\Desktop'
+diretorio_programa = 'C:\\db_json\\sqlite.json'
 
-diretorio_script = os.path.dirname(os.path.abspath(__file__))
-os.chdir(diretorio_programa)
 
 app = Flask(__name__)
 
-with open('sqlite.json', 'r', encoding='utf8') as f:
+with open(diretorio_programa, 'r', encoding='utf8') as f:
     dados = json.load(f)
 
 # Get total de dados
@@ -25,7 +23,7 @@ def pag_inicial():
 @app.route('/dados/<int:id>', methods=['GET'])
 def get_dados(id):
     try:
-        with open('sqlite.json', 'r', encoding='utf8') as f:
+        with open(diretorio_programa, 'r', encoding='utf8') as f:
             getDados = json.load(f)
             for indice, value in enumerate(getDados):
                 if value.get('id') == id:
@@ -40,7 +38,7 @@ def get_dados(id):
 # Adicionar dados
 @app.route('/dados', methods=['POST'])
 def criar_dados():
-    with open('sqlite.json', 'r', encoding='utf8') as f:
+    with open(diretorio_programa, 'r', encoding='utf8') as f:
         newDados = json.load(f)
 
     newValue = request.get_json()
@@ -51,14 +49,14 @@ def criar_dados():
                   indent=4, separators=(',', ':'))
 
     shutil.move(
-        out.name, 'sqlite.json')
+        out.name, diretorio_programa)
     return jsonify(newDados)
 
 
 # Editar dados por id
 @app.route('/dados/<int:id>', methods=['PUT'])
 def editar_dados(id):
-    with open('sqlite.json', 'r', encoding='utf8') as f:
+    with open(diretorio_programa, 'r', encoding='utf8') as f:
         editing_dados = json.load(f)
         editValue = request.get_json()
         for indice, valor in enumerate(editing_dados):
@@ -70,14 +68,14 @@ def editar_dados(id):
                       indent=4, separators=(',', ':'))
 
         shutil.move(
-            out.name, 'sqlite.json')
+            out.name, diretorio_programa)
         return jsonify(editing_dados)
 
 
 # Deletar dados
 @app.route('/dados/<int:id>', methods=['DELETE'])
 def deletar_dado(id):
-    with open('sqlite.json', 'r', encoding='utf8') as f:
+    with open(diretorio_programa, 'r', encoding='utf8') as f:
         deleting_dados = json.load(f)
         for indice, valor in enumerate(deleting_dados):
             if valor.get('id') == id:
@@ -87,7 +85,7 @@ def deletar_dado(id):
         json.dump(deleting_dados, out, ensure_ascii=False,
                   indent=4, separators=(',', ':'))
 
-    shutil.move(out.name, 'sqlite.json')
+    shutil.move(out.name, diretorio_programa)
     return jsonify(deleting_dados)
 
 
