@@ -54,6 +54,7 @@ $ python.exe create_api.py
 
 > Obs:
 > Antes de executar o programa, não esqueça de editar a variável "diretorio_programa" para o diretório do arquivo dados.json
+> Para uma melhor experiência recomendo utilizar o POSTMAN para fazer as requisições.
 
 <p></p>
 <p></p>
